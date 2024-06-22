@@ -1,11 +1,11 @@
 import { HiRefresh } from 'react-icons/hi';
 import { useHistory } from 'react-router-dom';
-import Button from '@/components/Buttons';
-import { IconButton } from '@/components/Buttons/IconButton';
+import Button, { ButtonIcon } from '@/components/Buttons';
 import TextField from '@/components/TextField';
 import routes from '@/router/routes';
-import * as S from './styles';
-export const SearchBar = () => {
+import * as S from './SearchbarStyles';
+
+const SearchBar = () => {
   const history = useHistory();
 
   const goToNewAdmissionPage = () => {
@@ -16,11 +16,13 @@ export const SearchBar = () => {
     <S.Container>
       <TextField placeholder="Digite um CPF válido" />
       <S.Actions>
-        <IconButton aria-label="refetch">
+        <ButtonIcon aria-label="refetch">
           <HiRefresh />
-        </IconButton>
+        </ButtonIcon>
         <Button onClick={() => goToNewAdmissionPage()}>Nova Admissão</Button>
       </S.Actions>
     </S.Container>
   );
 };
+
+export default SearchBar;

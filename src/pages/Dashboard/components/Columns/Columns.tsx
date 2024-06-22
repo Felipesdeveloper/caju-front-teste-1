@@ -1,5 +1,6 @@
-import * as S from './styles';
 import RegistrationCard from '../RegistrationCard';
+import { Props } from './ColumnsTypes';
+import * as S from './ColumnsStyles';
 
 const allColumns = [
   { status: 'REVIEW', title: 'Pronto para revisar' },
@@ -7,9 +8,6 @@ const allColumns = [
   { status: 'REPROVED', title: 'Reprovado' },
 ];
 
-type Props = {
-  registrations?: any[];
-};
 const Collumns = (props: Props) => {
   return (
     <S.Container>
