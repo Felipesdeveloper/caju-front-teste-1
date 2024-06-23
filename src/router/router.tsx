@@ -15,7 +15,6 @@ const Router = () => {
             path={routes.history}
             component={() => <div>History</div>}
           />
-
           <Route exact path="*">
             <Redirect to={routes.dashboard} />
           </Route>
