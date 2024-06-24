@@ -23,7 +23,12 @@ export const Card = styled.div`
     align-items: flex-start;
   }
 
-  ${ButtonStyles} {
-    align-self: flex-end;
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    ${ButtonStyles} {
+      align-self: flex-end;
+    }
   }
 `;

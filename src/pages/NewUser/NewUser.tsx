@@ -1,9 +1,9 @@
-import TextField from '@/components/TextField';
 import * as S from './NewUserStyles';
-import Button, { ButtonIcon } from '@/components/Buttons';
+import { ButtonIcon } from '@/components/Buttons';
 import { HiOutlineArrowLeft } from 'react-icons/hi';
 import { useHistory } from 'react-router-dom';
 import routes from '@/router/routes';
+import Form from './Form';
 
 const NewUserPage = () => {
   const history = useHistory();
@@ -11,17 +11,17 @@ const NewUserPage = () => {
     history.push(routes.dashboard);
   };
 
+  /**
+   * exibir o toast para caso de sucesso ou de erro
+   * Erro mostrar o toast no form ainda aberto, sucesso redirecionar e depois exibir o toast
+   */
   return (
     <S.Container>
       <S.Card>
         <ButtonIcon onClick={() => goToHome()} aria-label="back">
           <HiOutlineArrowLeft size={24} />
         </ButtonIcon>
-        <TextField placeholder="Nome" label="Nome" />
-        <TextField placeholder="Email" label="Email" type="email" />
-        <TextField placeholder="CPF" label="CPF" />
-        <TextField label="Data de admissão" type="date" />
-        <Button onClick={() => {}}>Cadastrar</Button>
+        <Form />
       </S.Card>
     </S.Container>
   );
