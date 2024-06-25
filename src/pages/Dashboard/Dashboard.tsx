@@ -19,7 +19,6 @@ const DashboardPage = () => {
   useEvent({
     key: 'cj_changeStatus',
     onCallbackListener: (message) => {
-      // @TODO: corrigir essa tipagem
       registrationActionRef.current = message;
       setIsShowDialog(true);
     },

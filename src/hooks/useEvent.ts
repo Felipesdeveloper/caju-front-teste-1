@@ -1,17 +1,20 @@
 import { useEffect } from 'react';
 import { CustomEventMap } from '@/dom';
 
-export type Props = {
-  key: 'cj_changeStatus';
-  onCallbackListener?<Type>(dataEvent: CustomEvent<Type>['detail']): void;
+export type Props<Type extends keyof CustomEventMap> = {
+  key: Type;
+  onCallbackListener?(dataEvent: CustomEventMap[Type]['detail']): void;
 };
 
-const useEvent = ({ key, onCallbackListener }: Props) => {
-  function dispatchEvent(message: CustomEventMap[`${typeof key}`]['detail']) {
-    window.dispatchEvent<typeof key>(new CustomEvent(key, { detail: message }));
+const useEvent = <Type extends keyof CustomEventMap>({
+  key,
+  onCallbackListener,
+}: Props<Type>) => {
+  function dispatchEvent(message: CustomEventMap[Type]['detail']) {
+    window.dispatchEvent(new CustomEvent(key, { detail: message }));
   }
 
-  function handleListerner(event: CustomEventMap[`${typeof key}`]) {
+  function handleListerner(event: CustomEventMap[Type]) {
     if (onCallbackListener) {
       onCallbackListener(event.detail);
     }
