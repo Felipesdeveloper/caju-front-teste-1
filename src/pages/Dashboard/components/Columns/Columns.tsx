@@ -1,5 +1,8 @@
-import RegistrationCard from '../RegistrationCard';
-import { Props } from './ColumnsTypes';
+import { useContext } from 'react';
+import registrationsContext from '@/context/registrations/registrationsProvider';
+import RegistrationCard, {
+  RegistrationCardSkeleton,
+} from '../RegistrationCard';
 import * as S from './ColumnsStyles';
 
 const allColumns = [
@@ -8,7 +11,10 @@ const allColumns = [
   { status: 'REPROVED', title: 'Reprovado' },
 ];
 
-const Collumns = (props: Props) => {
+const Collumns = () => {
+  const {
+    state: { data: registrations, isLoading },
+  } = useContext(registrationsContext);
   return (
     <S.Container>
       {allColumns.map((collum) => {
@@ -19,14 +25,21 @@ const Collumns = (props: Props) => {
                 {collum.title}
               </S.TitleColumn>
               <S.CollumContent>
-                {props?.registrations?.map((registration) => {
-                  return (
-                    <RegistrationCard
-                      data={registration}
-                      key={registration.id}
-                    />
-                  );
-                })}
+                {isLoading && <RegistrationCardSkeleton />}
+                {!isLoading &&
+                  registrations.length &&
+                  registrations
+                    .filter(
+                      (registration) => registration.status === collum.status,
+                    )
+                    .map((registration) => {
+                      return (
+                        <RegistrationCard
+                          data={registration}
+                          key={registration.id}
+                        />
+                      );
+                    })}
               </S.CollumContent>
             </>
           </S.Column>

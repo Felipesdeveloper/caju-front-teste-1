@@ -1,7 +1,6 @@
+import { RegistrationsResponse } from '@/interface/registrations';
 import apiService from './config';
 
-export function getRegistrations() {
-  apiService
-    .get('registrations')
-    .then((response) => console.log('response', response));
+export function getRegistrations(): Promise<RegistrationsResponse> {
+  return apiService.get('registrations');
 }
