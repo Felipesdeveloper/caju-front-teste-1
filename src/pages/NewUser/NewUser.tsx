@@ -11,10 +11,6 @@ const NewUserPage = () => {
     history.push(routes.dashboard);
   };
 
-  /**
-   * exibir o toast para caso de sucesso ou de erro
-   * Erro mostrar o toast no form ainda aberto, sucesso redirecionar e depois exibir o toast
-   */
   return (
     <S.Container>
       <S.Card>

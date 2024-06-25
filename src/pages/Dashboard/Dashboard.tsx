@@ -16,13 +16,33 @@ const DashboardPage = () => {
   const [isShowDialog, setIsShowDialog] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const registrationActionRef = useRef<cjChangeStatus>();
-  useEvent({
+  const { dispatchEvent } = useEvent<'cj_showToast'>({
+    key: 'cj_showToast',
+  });
+  useEvent<'cj_changeStatus'>({
     key: 'cj_changeStatus',
     onCallbackListener: (message) => {
       registrationActionRef.current = message;
       setIsShowDialog(true);
     },
   });
+
+  function handleSuccess() {
+    registrationActionRef.current = undefined;
+    fetchRegistrations();
+    setIsShowDialog(false);
+    dispatchEvent({
+      message: 'Atualização concluida com sucesso',
+      type: 'success',
+    });
+  }
+
+  function handleError() {
+    dispatchEvent({
+      message: 'erro ao concluir a atualização tente novamente',
+      type: 'error',
+    });
+  }
 
   return (
     <S.Container>
@@ -31,7 +51,7 @@ const DashboardPage = () => {
       <Dialog
         isShow={isShowDialog}
         title="Tem certeza que deseja realizar essa ação?"
-        content="Após clicar iremos realizar a alteração solitada"
+        content="Após clicar iremos realizar a alteração solicitada"
         actions={[
           {
             text: 'cancelar',
@@ -50,9 +70,10 @@ const DashboardPage = () => {
                   setIsLoading(true);
                   deleteRegistration(registrationActionRef.current.data)
                     .then(() => {
-                      registrationActionRef.current = undefined;
-                      fetchRegistrations();
-                      setIsShowDialog(false);
+                      handleSuccess();
+                    })
+                    .catch(() => {
+                      handleError();
                     })
                     .finally(() => setIsLoading(false));
 
@@ -63,8 +84,10 @@ const DashboardPage = () => {
                 updateRegistration(registrationActionRef.current.data)
                   .then(() => {
                     registrationActionRef.current = undefined;
-                    fetchRegistrations();
-                    setIsShowDialog(false);
+                    handleSuccess();
+                  })
+                  .catch(() => {
+                    handleError();
                   })
                   .finally(() => setIsLoading(false));
               }

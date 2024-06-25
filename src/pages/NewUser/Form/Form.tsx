@@ -4,7 +4,12 @@ import { Controller, useFormContext } from 'react-hook-form';
 import { newUserSchemaType } from './schema';
 import Button from '@/components/Buttons';
 import TextField from '@/components/TextField';
-import { formatCPF } from '@/utils/formatters';
+import useEvent from '@/hooks/useEvent';
+import {
+  formatCPF,
+  formatDateToPatternRequested,
+  regexOnlyNumbers,
+} from '@/utils/formatters';
 import routes from '@/router/routes';
 import { createRegistration } from '@/services/registrations';
 
@@ -13,19 +18,46 @@ const Form = () => {
   const [isLoading, setIsLoading] = useState(false);
   const { control, formState, handleSubmit, reset } =
     useFormContext<newUserSchemaType>();
+  const { dispatchEvent } = useEvent<'cj_showToast'>({
+    key: 'cj_showToast',
+  });
 
   function goToHome() {
     history.push(routes.dashboard);
   }
 
+  function payloadFormated(data: newUserSchemaType) {
+    return {
+      ...data,
+      cpf: data.cpf.replace(regexOnlyNumbers, ''),
+      admissionDate: formatDateToPatternRequested(data.admissionDate),
+    };
+  }
+
   function onSubmit(data: newUserSchemaType) {
     if (!isLoading) {
       setIsLoading(true);
-      createRegistration({ ...data, status: 'REVIEW' }).finally(() => {
-        reset();
-        setIsLoading(false);
-        goToHome();
-      });
+      createRegistration({
+        ...payloadFormated({ ...data }),
+        status: 'REVIEW',
+      })
+        .then(() => {
+          reset();
+          goToHome();
+          dispatchEvent({
+            message: 'Cadastro realizado com sucesso',
+            type: 'success',
+          });
+        })
+        .catch(() => {
+          dispatchEvent({
+            message: 'erro ao concluir o cadastro tente novamente',
+            type: 'error',
+          });
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
     }
   }
 

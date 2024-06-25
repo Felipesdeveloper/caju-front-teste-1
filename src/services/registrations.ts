@@ -12,6 +12,10 @@ export function getRegistrations(): Promise<RegistrationsResponse> {
     AbortControllerGetRegistrations.abort();
   }
 
+  if (AbortControllerSearchRegistrations) {
+    AbortControllerSearchRegistrations.abort();
+  }
+
   AbortControllerGetRegistrations = new AbortController();
   const { signal } = AbortControllerGetRegistrations;
 
@@ -29,6 +33,10 @@ export function searchRegistrations(
 ): Promise<RegistrationsResponse> {
   if (AbortControllerSearchRegistrations) {
     AbortControllerSearchRegistrations.abort();
+  }
+
+  if (AbortControllerGetRegistrations) {
+    AbortControllerGetRegistrations.abort();
   }
 
   AbortControllerSearchRegistrations = new AbortController();

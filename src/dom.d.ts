@@ -1,12 +1,19 @@
 import { Registration } from '@/interface/registrations';
+import { ToastType } from '@/components/Toast/ToastTypes';
 
 export interface cjChangeStatus {
   action: 'update' | 'delete';
   data: Registration;
 }
 
+export interface cjShowToast {
+  message: string;
+  type: ToastType;
+}
+
 export interface CustomEventMap {
   cj_changeStatus: CustomEvent<cjChangeStatus>;
+  cj_showToast: CustomEvent<cjShowToast>;
 }
 
 declare global {
