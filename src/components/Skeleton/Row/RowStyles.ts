@@ -7,7 +7,5 @@ const opacityAnimation = keyframes`
 `;
 
 export const Animate = styled.div`
-  animation-name: ${opacityAnimation};
-  animation-duration: 1s;
-  animation-iteration-count: infinite;
+  animation: ${opacityAnimation} 0.7s linear infinite;
 `;

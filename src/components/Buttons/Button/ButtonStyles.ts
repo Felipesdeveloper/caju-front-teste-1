@@ -1,5 +1,10 @@
-import styled, { css } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 import { Props } from './ButtonTypes';
+
+const RotationAnimation = keyframes`
+  0% { transform: rotate(0deg);  }
+  100% { transform: rotate(360deg); }
+`;
 
 export const Button = styled.button<{ variant: Props['variant'] }>`
   outline: none;
@@ -18,4 +23,11 @@ export const Button = styled.button<{ variant: Props['variant'] }>`
   ${({ variant = 'primary' }) => css`
     background-color: ${variant === 'primary' ? '#64a98c' : '#252525'};
   `}
+`;
+
+export const WrapperLoading = styled.span`
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  animation: ${RotationAnimation} 1s linear infinite;
 `;

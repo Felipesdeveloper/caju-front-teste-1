@@ -98,7 +98,7 @@ const Form = () => {
         )}
         defaultValue=""
       />
-      <Button type="submit" disabled={isLoading}>
+      <Button type="submit" disabled={isLoading} isLoading={isLoading}>
         Cadastrar
       </Button>
     </form>
