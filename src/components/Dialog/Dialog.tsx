@@ -44,7 +44,7 @@ const Dialog = ({
             <HiX />
           </ButtonIcon>
         </S.Header>
-        {content}
+        <p>{content}</p>
         <Actions actions={actions} />
       </S.WrapperContent>
     </S.Container>

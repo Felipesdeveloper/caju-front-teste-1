@@ -13,8 +13,8 @@ type Story = StoryObj<Props>;
 
 export const Default: Story = {
   args: {
-    bgcolor: 'rgb(255, 145, 154)',
-    color: '#fff',
+    $bgcolor: 'rgb(255, 145, 154)',
+    $color: '#fff',
     children: 'Reprovar',
   },
 };

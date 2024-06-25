@@ -3,7 +3,7 @@ import useEvent from '@/hooks/useEvent';
 import useTimeout from '@/hooks/useTimeout';
 import useDebounce from '@/hooks/useDebounce';
 import * as S from './ToastStyles';
-import { cjShowToast } from '@/dom';
+import { cjShowToast } from '@/config/dom';
 
 const Toast = () => {
   const messageRef = useRef<cjShowToast>({ message: '', type: 'success' });

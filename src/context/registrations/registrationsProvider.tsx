@@ -7,12 +7,11 @@ interface RegistrationContextProvider {
   children: React.ReactNode;
 }
 
-const RegistrationsContext = createContext(
-  {} as {
-    state: RegistrationState;
-    dispatch: Dispatch<DispatchType>;
-  },
-);
+export interface RegistrationsContextInterface {
+  state: RegistrationState;
+  dispatch: Dispatch<DispatchType>;
+}
+const RegistrationsContext = createContext({} as RegistrationsContextInterface);
 
 RegistrationsContext.Provider;
 

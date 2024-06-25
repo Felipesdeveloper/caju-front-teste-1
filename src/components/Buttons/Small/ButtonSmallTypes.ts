@@ -1,8 +1,8 @@
 import { HTMLAttributes, ReactNode } from 'react';
 
 export type PropsStyles = {
-  bgcolor?: string;
-  color?: string;
+  $bgcolor?: string;
+  $color?: string;
 };
 
 export type Props = {

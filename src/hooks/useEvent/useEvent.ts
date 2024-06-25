@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { CustomEventMap } from '@/dom';
+import { CustomEventMap } from '@/config/dom';
 
 export type Props<Type extends keyof CustomEventMap> = {
   key: Type;

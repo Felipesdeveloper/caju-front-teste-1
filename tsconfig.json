@@ -8,6 +8,7 @@
 
     /* Bundler mode */
     "moduleResolution": "node",
+    "esModuleInterop": true,
     "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
@@ -20,7 +21,7 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src", "src/dom.d.ts"],
+  "include": ["src", "src/config/dom.d.ts", "src/config/vite-env.d.ts"],
   "references": [{ "path": "./tsconfig.node.json" }],
   "extends": "./tsconfig.paths.json"
 }

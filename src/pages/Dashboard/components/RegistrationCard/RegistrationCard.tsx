@@ -31,7 +31,7 @@ const RegistrationCard = ({ registration }: Props) => {
         {status === 'REVIEW' && (
           <>
             <ButtonSmall
-              bgcolor="rgb(255, 145, 154)"
+              $bgcolor="rgb(255, 145, 154)"
               onClick={() =>
                 dispatchEvent({
                   action: 'update',
@@ -42,7 +42,7 @@ const RegistrationCard = ({ registration }: Props) => {
               Reprovar
             </ButtonSmall>
             <ButtonSmall
-              bgcolor="rgb(155, 229, 155)"
+              $bgcolor="rgb(155, 229, 155)"
               onClick={() =>
                 dispatchEvent({
                   action: 'update',
@@ -56,7 +56,7 @@ const RegistrationCard = ({ registration }: Props) => {
         )}
         {['REPROVED', 'APPROVED'].includes(status) && (
           <ButtonSmall
-            bgcolor="#ff8858"
+            $bgcolor="#ff8858"
             onClick={() =>
               dispatchEvent({
                 action: 'update',

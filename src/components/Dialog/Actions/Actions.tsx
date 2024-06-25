@@ -9,7 +9,7 @@ const Actions = ({ actions }: Props) => {
         <Button
           disabled={action.isLoading}
           isLoading={action.isLoading}
-          variant={action.type === 'rejected' ? 'secondary' : 'primary'}
+          $variant={action.type === 'rejected' ? 'secondary' : 'primary'}
           key={`action-dialog-${action.text}`}
           onClick={action.onClick}
         >

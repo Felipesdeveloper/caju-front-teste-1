@@ -1,7 +1,9 @@
 import styled, { css } from 'styled-components';
 
 export const Container = styled.div.attrs<{ $isShow: boolean }>(
-  ({ $isShow }) => ({ 'aria-hidden': !$isShow }),
+  ({ $isShow }) => ({
+    'aria-hidden': !$isShow,
+  }),
 )`
   display: flex;
   align-items: center;
@@ -16,6 +18,10 @@ export const Container = styled.div.attrs<{ $isShow: boolean }>(
   transform: scale(0.7);
   transform-origin: center center;
   transition: all 0.2s ease;
+
+  p {
+    margin: 0;
+  }
 
   ${({ $isShow }) =>
     $isShow &&

@@ -6,7 +6,7 @@ const RotationAnimation = keyframes`
   100% { transform: rotate(360deg); }
 `;
 
-export const Button = styled.button<{ variant: Props['variant'] }>`
+export const Button = styled.button<{ $variant: Props['$variant'] }>`
   outline: none;
   display: flex;
   align-items: center;
@@ -20,8 +20,8 @@ export const Button = styled.button<{ variant: Props['variant'] }>`
   font-size: 16px;
   font-weight: 600;
 
-  ${({ variant = 'primary' }) => css`
-    background-color: ${variant === 'primary' ? '#64a98c' : '#252525'};
+  ${({ $variant = 'primary' }) => css`
+    background-color: ${$variant === 'primary' ? '#64a98c' : '#252525'};
   `}
 `;
 

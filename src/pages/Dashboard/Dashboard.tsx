@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react';
 import Dialog from '@/components/Dialog';
-import { cjChangeStatus } from '@/dom';
+import { cjChangeStatus } from '@/config/dom';
 import useEvent from '@/hooks/useEvent';
 import useLoadRegistrations from '@/hooks/useLoadRegistrations';
 import {

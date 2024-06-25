@@ -2,7 +2,9 @@
 export default {
   verbose: true,
   preset: 'ts-jest',
+  clearMocks: true,
   testEnvironment: 'jsdom',
+  setupFilesAfterEnv: ['<rootDir>/src/config/setupTests.js', 'dotenv/config'],
   transform: {
     '^.+\\.tsx?$': ['ts-jest', { isolatedModules: true }],
     '^.+\\.(js|jsx)$': 'babel-jest',
@@ -10,5 +12,4 @@ export default {
   moduleNameMapper: {
     '^@/(.+)': '<rootDir>/src/$1',
   },
-  //   setupFilesAfterEnv: ["@testing-library/jest-dom/extend-expect"],
 };
