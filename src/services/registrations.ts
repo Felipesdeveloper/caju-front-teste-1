@@ -5,6 +5,8 @@ import apiService from './config';
 let AbortControllerGetRegistrations: AbortController;
 let AbortControllerSearchRegistrations: AbortController;
 
+const uri = 'registrations';
+
 export function getRegistrations(): Promise<RegistrationsResponse> {
   if (AbortControllerGetRegistrations) {
     AbortControllerGetRegistrations.abort();
@@ -13,13 +15,13 @@ export function getRegistrations(): Promise<RegistrationsResponse> {
   AbortControllerGetRegistrations = new AbortController();
   const { signal } = AbortControllerGetRegistrations;
 
-  return apiService.get('registrations', { signal });
+  return apiService.get(uri, { signal });
 }
 
 export function updateRegistration(
   registration: Registration,
 ): Promise<RegistrationsResponse> {
-  return apiService.put(`registrations/${registration.id}`, registration);
+  return apiService.put(`${uri}/${registration.id}`, registration);
 }
 
 export function searchRegistrations(
@@ -42,5 +44,13 @@ export function searchRegistrations(
 export function deleteRegistration(
   registration: Registration,
 ): Promise<RegistrationsResponse> {
-  return apiService.delete(`registrations/${registration.id}`);
+  return apiService.delete(`${uri}/${registration.id}`);
+}
+
+interface CreateRegistration extends Omit<Registration, 'id'> {}
+
+export function createRegistration(
+  registration: CreateRegistration,
+): Promise<RegistrationsResponse> {
+  return apiService.post(`${uri}`, registration);
 }

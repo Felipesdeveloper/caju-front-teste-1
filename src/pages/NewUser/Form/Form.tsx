@@ -1,20 +1,31 @@
 import { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { Controller, useFormContext } from 'react-hook-form';
 import { newUserSchemaType } from './schema';
 import Button from '@/components/Buttons';
 import TextField from '@/components/TextField';
 import { formatCPF } from '@/utils/formatters';
+import routes from '@/router/routes';
+import { createRegistration } from '@/services/registrations';
 
 const Form = () => {
+  const history = useHistory();
   const [isLoading, setIsLoading] = useState(false);
   const { control, formState, handleSubmit, reset } =
     useFormContext<newUserSchemaType>();
 
+  function goToHome() {
+    history.push(routes.dashboard);
+  }
+
   function onSubmit(data: newUserSchemaType) {
-    console.log('data', data);
     if (!isLoading) {
       setIsLoading(true);
-      reset();
+      createRegistration({ ...data, status: 'REVIEW' }).finally(() => {
+        reset();
+        setIsLoading(false);
+        goToHome();
+      });
     }
   }
 
@@ -87,7 +98,9 @@ const Form = () => {
         )}
         defaultValue=""
       />
-      <Button type="submit">Cadastrar</Button>
+      <Button type="submit" disabled={isLoading}>
+        Cadastrar
+      </Button>
     </form>
   );
 };
