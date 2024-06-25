@@ -1,9 +1,12 @@
 import { useState, useRef } from 'react';
 import Dialog from '@/components/Dialog';
+import { cjChangeStatus } from '@/dom';
 import useEvent from '@/hooks/useEvent';
 import useLoadRegistrations from '@/hooks/useLoadRegistrations';
-import { updateRegistration } from '@/services/registrations';
-import { Registration } from '@/interface/registrations';
+import {
+  deleteRegistration,
+  updateRegistration,
+} from '@/services/registrations';
 import Collumns from './components/Columns';
 import * as S from './DashboardStyles';
 import SearchBar from './components/Searchbar';
@@ -11,7 +14,8 @@ import SearchBar from './components/Searchbar';
 const DashboardPage = () => {
   const { fetchRegistrations } = useLoadRegistrations();
   const [isShowDialog, setIsShowDialog] = useState(false);
-  const registrationActionRef = useRef<Registration>();
+  const [isLoading, setIsLoading] = useState(false);
+  const registrationActionRef = useRef<cjChangeStatus>();
   useEvent({
     key: 'cj_changeStatus',
     onCallbackListener: (message) => {
@@ -36,17 +40,37 @@ const DashboardPage = () => {
             onClick: () => {
               setIsShowDialog(false);
             },
+            isLoading: false,
           },
           {
             text: 'ok',
             type: 'approved',
             onClick: () => {
-              updateRegistration(registrationActionRef.current!).then(() => {
-                registrationActionRef.current = undefined;
-                fetchRegistrations();
-                setIsShowDialog(false);
-              });
+              if (registrationActionRef.current) {
+                if (registrationActionRef.current.action === 'delete') {
+                  setIsLoading(true);
+                  deleteRegistration(registrationActionRef.current.data)
+                    .then(() => {
+                      registrationActionRef.current = undefined;
+                      fetchRegistrations();
+                      setIsShowDialog(false);
+                    })
+                    .finally(() => setIsLoading(false));
+
+                  return;
+                }
+
+                setIsLoading(true);
+                updateRegistration(registrationActionRef.current.data)
+                  .then(() => {
+                    registrationActionRef.current = undefined;
+                    fetchRegistrations();
+                    setIsShowDialog(false);
+                  })
+                  .finally(() => setIsLoading(false));
+              }
             },
+            isLoading,
           },
         ]}
         onClose={() => setIsShowDialog(false)}

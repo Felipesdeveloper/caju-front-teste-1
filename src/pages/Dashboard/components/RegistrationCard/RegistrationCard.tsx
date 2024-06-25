@@ -4,7 +4,7 @@ import {
   HiOutlineCalendar,
   HiOutlineTrash,
 } from 'react-icons/hi';
-import { ButtonSmall } from '@/components/Buttons';
+import { ButtonIcon, ButtonSmall } from '@/components/Buttons';
 import useEvent from '@/hooks/useEvent';
 import { Props } from './RegistrationCardTypes';
 import * as S from './RegistrationCardStyles';
@@ -33,7 +33,10 @@ const RegistrationCard = ({ registration }: Props) => {
             <ButtonSmall
               bgcolor="rgb(255, 145, 154)"
               onClick={() =>
-                dispatchEvent({ ...registration, status: 'REPROVED' })
+                dispatchEvent({
+                  action: 'update',
+                  data: { ...registration, status: 'REPROVED' },
+                })
               }
             >
               Reprovar
@@ -41,7 +44,10 @@ const RegistrationCard = ({ registration }: Props) => {
             <ButtonSmall
               bgcolor="rgb(155, 229, 155)"
               onClick={() =>
-                dispatchEvent({ ...registration, status: 'APPROVED' })
+                dispatchEvent({
+                  action: 'update',
+                  data: { ...registration, status: 'APPROVED' },
+                })
               }
             >
               Aprovar
@@ -51,12 +57,23 @@ const RegistrationCard = ({ registration }: Props) => {
         {['REPROVED', 'APPROVED'].includes(status) && (
           <ButtonSmall
             bgcolor="#ff8858"
-            onClick={() => dispatchEvent({ ...registration, status: 'REVIEW' })}
+            onClick={() =>
+              dispatchEvent({
+                action: 'update',
+                data: { ...registration, status: 'REVIEW' },
+              })
+            }
           >
             Revisar novamente
           </ButtonSmall>
         )}
-        <HiOutlineTrash />
+        <ButtonIcon
+          onClick={() =>
+            dispatchEvent({ action: 'delete', data: { ...registration } })
+          }
+        >
+          <HiOutlineTrash />
+        </ButtonIcon>
       </S.Actions>
     </S.Card>
   );

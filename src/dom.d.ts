@@ -1,7 +1,12 @@
 import { Registration } from '@/interface/registrations';
 
+export interface cjChangeStatus {
+  action: 'update' | 'delete';
+  data: Registration;
+}
+
 export interface CustomEventMap {
-  cj_changeStatus: CustomEvent<Registration>;
+  cj_changeStatus: CustomEvent<cjChangeStatus>;
 }
 
 declare global {

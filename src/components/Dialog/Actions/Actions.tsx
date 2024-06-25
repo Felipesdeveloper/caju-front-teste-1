@@ -7,6 +7,7 @@ const Actions = ({ actions }: Props) => {
     <S.WrapperActions>
       {actions.map((action) => (
         <Button
+          disabled={action.isLoading}
           variant={action.type === 'rejected' ? 'secondary' : 'primary'}
           key={`action-dialog-${action.text}`}
           onClick={action.onClick}

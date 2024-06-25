@@ -38,3 +38,9 @@ export function searchRegistrations(
     signal,
   });
 }
+
+export function deleteRegistration(
+  registration: Registration,
+): Promise<RegistrationsResponse> {
+  return apiService.delete(`registrations/${registration.id}`);
+}
