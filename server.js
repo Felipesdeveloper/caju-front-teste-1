@@ -14,7 +14,9 @@ server.use((req, res, next) => {
     'Access-Control-Allow-Headers',
     'Origin, X-Requested-With, Content-Type, Accept',
   );
-  next();
+
+  // Adicionado apenas para conseguirmos ver o loading
+  setTimeout(next, 1000);
 });
 
 server.use(router);

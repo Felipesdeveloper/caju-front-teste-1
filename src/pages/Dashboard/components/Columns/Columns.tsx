@@ -27,7 +27,7 @@ const Collumns = () => {
               <S.CollumContent>
                 {isLoading && <RegistrationCardSkeleton />}
                 {!isLoading &&
-                  registrations.length &&
+                  !!registrations.length &&
                   registrations
                     .filter(
                       (registration) => registration.status === collum.status,

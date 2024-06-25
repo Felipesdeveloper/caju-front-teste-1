@@ -32,7 +32,7 @@ export const RegistrationContext: RegistrationStateReducer = (
 
 RegistrationContext.key = 'registration';
 RegistrationContext.initialState = {
-  isLoading: true,
+  isLoading: false,
   isError: false,
   data: [],
 };
