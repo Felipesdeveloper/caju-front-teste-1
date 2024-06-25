@@ -2,14 +2,16 @@ import { useState, useRef } from 'react';
 import Dialog from '@/components/Dialog';
 import useEvent from '@/hooks/useEvent';
 import useLoadRegistrations from '@/hooks/useLoadRegistrations';
+import { updateRegistration } from '@/services/registrations';
+import { Registration } from '@/interface/registrations';
 import Collumns from './components/Columns';
 import * as S from './DashboardStyles';
 import SearchBar from './components/Searchbar';
 
 const DashboardPage = () => {
-  useLoadRegistrations();
+  const { fetchRegistrations } = useLoadRegistrations();
   const [isShowDialog, setIsShowDialog] = useState(false);
-  const registrationActionRef = useRef({ id: '', action: '' });
+  const registrationActionRef = useRef<Registration>();
   useEvent({
     key: 'cj_changeStatus',
     onCallbackListener: (message) => {
@@ -31,13 +33,20 @@ const DashboardPage = () => {
           {
             text: 'cancelar',
             type: 'rejected',
-            onClick: () =>
-              console.log('cancelar', registrationActionRef.current),
+            onClick: () => {
+              setIsShowDialog(false);
+            },
           },
           {
             text: 'ok',
             type: 'approved',
-            onClick: () => console.log('ok', registrationActionRef.current),
+            onClick: () => {
+              updateRegistration(registrationActionRef.current!).then(() => {
+                registrationActionRef.current = undefined;
+                fetchRegistrations();
+                setIsShowDialog(false);
+              });
+            },
           },
         ]}
         onClose={() => setIsShowDialog(false)}

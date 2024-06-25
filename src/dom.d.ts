@@ -1,10 +1,7 @@
-import { Status } from '@/interface/registrations';
+import { Registration } from '@/interface/registrations';
 
 export interface CustomEventMap {
-  cj_changeStatus: CustomEvent<{
-    id: string;
-    action: Status;
-  }>;
+  cj_changeStatus: CustomEvent<Registration>;
 }
 
 declare global {

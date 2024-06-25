@@ -35,7 +35,7 @@ const Collumns = () => {
                     .map((registration) => {
                       return (
                         <RegistrationCard
-                          data={registration}
+                          registration={registration}
                           key={registration.id}
                         />
                       );
