@@ -37,12 +37,10 @@ export const WrapperContent = styled.div<{ $isShow: boolean }>`
   position: relative;
   max-width: 85%;
   max-height: 85%;
-  min-width: 300px;
-  min-height: 300px;
+  width: 500px;
+  height: 300px;
   background: #fff;
   overflow-y: auto;
-  width: 100%;
-  height: 100%;
   border-radius: 32px;
   padding: 32px;
   z-index: 3;

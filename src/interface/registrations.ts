@@ -1,10 +1,12 @@
-interface Registrations {
+export type Status = 'APPROVED' | 'REVIEW' | 'REPROVED';
+
+export interface Registration {
   admissionDate: string;
   email: string;
   employeeName: string;
-  status: 'APPROVED' | 'REVIEW' | 'REPROVED';
+  status: Status;
   cpf: string;
   id: string;
 }
 
-export type RegistrationsResponse = Registrations[];
+export type RegistrationsResponse = Registration[];

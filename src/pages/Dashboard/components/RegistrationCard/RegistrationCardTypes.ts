@@ -1,3 +1,5 @@
+import { Registration } from '@/interface/registrations';
+
 export type Props = {
-  data: any;
+  data: Registration;
 };

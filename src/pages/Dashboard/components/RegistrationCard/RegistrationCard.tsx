@@ -5,33 +5,52 @@ import {
   HiOutlineTrash,
 } from 'react-icons/hi';
 import { ButtonSmall } from '@/components/Buttons';
+import useEvent from '@/hooks/useEvent';
 import { Props } from './RegistrationCardTypes';
 import * as S from './RegistrationCardStyles';
 
-const RegistrationCard = (props: Props) => {
+const RegistrationCard = ({
+  data: { employeeName, email, admissionDate, status, id },
+}: Props) => {
+  const { dispatchEvent } = useEvent({ key: 'cj_changeStatus' });
   return (
     <S.Card>
       <S.IconAndText>
         <HiOutlineUser />
-        <h3>{props.data.employeeName}</h3>
+        <h3>{employeeName}</h3>
       </S.IconAndText>
       <S.IconAndText>
         <HiOutlineMail />
-        <p>{props.data.email}</p>
+        <p>{email}</p>
       </S.IconAndText>
       <S.IconAndText>
         <HiOutlineCalendar />
-        <span>{props.data.admissionDate}</span>
+        <span>{admissionDate}</span>
       </S.IconAndText>
       <S.Actions>
-        {props.data.status === 'REVIEW' && (
+        {status === 'REVIEW' && (
           <>
-            <ButtonSmall bgcolor="rgb(255, 145, 154)">Reprovar</ButtonSmall>
-            <ButtonSmall bgcolor="rgb(155, 229, 155)">Aprovar</ButtonSmall>
+            <ButtonSmall
+              bgcolor="rgb(255, 145, 154)"
+              onClick={() => dispatchEvent({ id, action: 'REPROVED' })}
+            >
+              Reprovar
+            </ButtonSmall>
+            <ButtonSmall
+              bgcolor="rgb(155, 229, 155)"
+              onClick={() => dispatchEvent({ id, action: 'APPROVED' })}
+            >
+              Aprovar
+            </ButtonSmall>
           </>
         )}
-        {['REPROVED', 'APPROVED'].includes(props.data.status) && (
-          <ButtonSmall bgcolor="#ff8858">Revisar novamente</ButtonSmall>
+        {['REPROVED', 'APPROVED'].includes(status) && (
+          <ButtonSmall
+            bgcolor="#ff8858"
+            onClick={() => dispatchEvent({ id, action: 'REVIEW' })}
+          >
+            Revisar novamente
+          </ButtonSmall>
         )}
         <HiOutlineTrash />
       </S.Actions>

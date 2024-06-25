@@ -1,6 +1,9 @@
+import { Status } from '@/interface/registrations';
+
 export interface CustomEventMap {
   cj_changeStatus: CustomEvent<{
     id: string;
+    action: Status;
   }>;
 }
 
